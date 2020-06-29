@@ -89,13 +89,13 @@ router.patch('/patients/:id', requireToken, removeBlanks, (req, res, next) => {
 
       // pass the result of Mongoose's `.update` to the next `.then`
       // return patient.updateOne(req.body.patients)
-      if (patientData.name !== "") {
+      if (patientData.name !== '') {
         patient.name = patientData.name
       }
-      if (patientData.dob !== "") {
+      if (patientData.dob !== '') {
         patient.dob = patientData.dob
       }
-      if (patientData.state !== "") {
+      if (patientData.state !== '') {
         patient.state = patientData.state
       }
       return patient.save()
