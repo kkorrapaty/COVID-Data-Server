@@ -13,9 +13,7 @@ const patientSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  symptoms: {
-    type: []
-  },
+  // symptoms: [],
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
