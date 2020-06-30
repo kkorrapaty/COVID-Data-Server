@@ -30,7 +30,7 @@ const router = express.Router()
 // INDEX
 // GET /examples
 router.get('/patients', requireToken, (req, res, next) => {
-  Patients.find()
+  Patients.find({'owner': req.user.id})
     .populate('owner')
     .then(patients => {
       // `examples` will be an array of Mongoose documents
