@@ -79,7 +79,7 @@ router.patch('/patients/:id', requireToken, removeBlanks, (req, res, next) => {
   // if the client attempts to change the `owner` property by including a new
   // owner, prevent that by deleting that key/value pair
   delete req.body.patients.owner
-  const patientData = req.body.patients
+  // const patientData = req.body.patients
   Patients.findById(req.params.id)
     .then(handle404)
     .then(patient => {
@@ -88,20 +88,20 @@ router.patch('/patients/:id', requireToken, removeBlanks, (req, res, next) => {
       requireOwnership(req, patient)
 
       // pass the result of Mongoose's `.update` to the next `.then`
-      // return patient.updateOne(req.body.patients)
-      if (patientData.name !== '') {
-        patient.name = patientData.name
-      }
-      if (patientData.dob !== '') {
-        patient.dob = patientData.dob
-      }
-      if (patientData.state !== '') {
-        patient.state = patientData.state
-      }
-      return patient.save()
+      return patient.updateOne(req.body.patients)
+      // if (patientData.name !== '') {
+      //   patient.name = patientData.name
+      // }
+      // if (patientData.dob !== '') {
+      //   patient.dob = patientData.dob
+      // }
+      // if (patientData.state !== '') {
+      //   patient.state = patientData.state
+      // }
+      // return patient.save()
     })
     // if that succeeded, return 204 and no JSON
-    .then((patient) => res.sendStatus(204).json({ patient: patient.toObject() }))
+    .then((patient) => res.sendStatus(204))
     // if an error occurs, pass it to the handler
     .catch(next)
 })
